@@ -1,10 +1,12 @@
 import axios from "axios"
 import React, { useState } from "react"
+import { useNavigate } from "react-router"
 import { measurements } from "../lib/measurements"
 
 import { Ingredient } from "../types"
 
 const CreateRecipe = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState("")
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
   const [ingredientName, setIngredientName] = useState("")
@@ -29,17 +31,21 @@ const CreateRecipe = () => {
     }
   }
 
-  const submitRecipe = async () => {
-    await axios.post("http://localhost:3001/", {
-      name: name,
-      ingredients: ingredients.map((ing) => {
-        return {
-          name: ing.name,
-          measurement: `${ing.volume} ${ing.measurement}`,
-        }
-      }),
-      method: "",
-    })
+  const submitRecipe = () => {
+    axios
+      .post("http://localhost:3001/", {
+        name: name,
+        ingredients: ingredients.map((ing) => {
+          return {
+            name: ing.name,
+            measurement: `${ing.volume} ${ing.measurement}`,
+          }
+        }),
+        method: method,
+      })
+      .then(() => {
+        navigate("/")
+      })
   }
 
   return (
@@ -48,6 +54,7 @@ const CreateRecipe = () => {
       <div className="input-container">
         <label>Recipe name</label>
         <input
+          id="recipe-name"
           value={name}
           className="w-50"
           onChange={(event) => setName(event.target.value)}
@@ -57,6 +64,7 @@ const CreateRecipe = () => {
         <div className="input-container pr-2">
           <label className="pr-2">Name</label>
           <input
+            id="ingredient-name"
             name="name"
             value={ingredientName}
             onChange={(event) => setIngredientName(event.target.value)}
@@ -65,6 +73,7 @@ const CreateRecipe = () => {
         <div className="input-container pr-2">
           <label className="pr-2">Volume</label>
           <input
+            id="ingredient-volume"
             name="volume"
             value={ingredientVolume}
             onChange={(event) => setIngredientVolume(event.target.value)}
@@ -78,7 +87,11 @@ const CreateRecipe = () => {
           >
             <option value="">Select a measurement</option>
             {measurements.map((value) => {
-              return <option value={value}>{value}</option>
+              return (
+                <option key={value} id={value} value={value}>
+                  {value}
+                </option>
+              )
             })}
           </select>
         </div>
@@ -100,7 +113,9 @@ const CreateRecipe = () => {
           onChange={(event) => setMethod(event.target.value)}
         />
       </div>
-      <button onClick={submitRecipe}>Save recipe</button>
+      <button id="save" onClick={submitRecipe}>
+        Save recipe
+      </button>
     </div>
   )
 }

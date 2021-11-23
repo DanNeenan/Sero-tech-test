@@ -13,6 +13,18 @@ const Search = () => {
     })
   }, [])
 
+  const triggerSearch = () => {
+    axios
+      .get("http://localhost:3001", {
+        params: {
+          search,
+        },
+      })
+      .then((res) => {
+        setRecipes(res.data)
+      })
+  }
+
   return (
     <div>
       <div className="input-container">
@@ -23,6 +35,7 @@ const Search = () => {
           onChange={(event) => setSearch(event.target.value)}
         />
       </div>
+      <button onClick={triggerSearch}>Search</button>
       <div>
         {recipes.map((recipe) => {
           return <Link to={recipe._id}>{recipe.name}</Link>

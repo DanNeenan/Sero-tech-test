@@ -18,7 +18,8 @@ app.use(cors())
 app.use(morgan("combined"))
 
 app.get("/", async (req, res) => {
-  res.send(await getRecipes())
+  const recipes = await getRecipes(req.query.search)
+  res.send(recipes)
 })
 
 app.get("/:id", async (req, res) => {

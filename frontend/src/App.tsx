@@ -17,10 +17,10 @@ const App = () => {
   return (
     <div className="p-4">
       <div className="p-4">
-        <Link className="pr-2" to="/">
+        <Link id="home" className="pr-2" to="/">
           Home
         </Link>
-        <Link className="pr-2" to="/create">
+        <Link id="create" className="pr-2" to="/create">
           Create recipe
         </Link>
       </div>

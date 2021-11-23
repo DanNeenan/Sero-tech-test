@@ -13,9 +13,12 @@ export const insertRecipe = async (recipe) => {
   return insertedId
 }
 
-export const getRecipes = async () => {
+export const getRecipes = async (name) => {
   const database = await getDatabase()
-  return await database.connection.collection(collectionName).find({}).toArray()
+  return await database.connection
+    .collection(collectionName)
+    .find({ name })
+    .toArray()
 }
 
 export const getRecipe = async (id) => {
