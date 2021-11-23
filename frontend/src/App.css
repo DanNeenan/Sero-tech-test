@@ -1,0 +1,21 @@
+.ingredient-container {
+  display: flex;
+  padding: 5px 0;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.p-4 {
+  padding: 10px;
+}
+
+.pr-2 {
+  padding-right: 5px;
+}
