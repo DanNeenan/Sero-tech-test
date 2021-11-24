@@ -36,11 +36,15 @@ const Search = () => {
         />
       </div>
       <button onClick={triggerSearch}>Search</button>
-      <div>
+      <ul>
         {recipes.map((recipe) => {
-          return <Link to={recipe._id}>{recipe.name}</Link>
+          return (
+            <li key={recipe._id}>
+              <Link to={recipe._id}>{recipe.name}</Link>
+            </li>
+          )
         })}
-      </div>
+      </ul>
     </div>
   )
 }

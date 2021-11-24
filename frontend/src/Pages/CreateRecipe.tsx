@@ -60,6 +60,13 @@ const CreateRecipe = () => {
           onChange={(event) => setName(event.target.value)}
         />
       </div>
+      {ingredients.map((ingredient) => {
+        return (
+          <div>
+            {ingredient.name}: {ingredient.volume} {ingredient.measurement}
+          </div>
+        )
+      })}
       <div className="ingredient-container">
         <div className="input-container pr-2">
           <label className="pr-2">Name</label>
@@ -96,14 +103,9 @@ const CreateRecipe = () => {
           </select>
         </div>
       </div>
-      {ingredients.map((ingredient) => {
-        return (
-          <div>
-            {ingredient.name}: {ingredient.volume} {ingredient.measurement}
-          </div>
-        )
-      })}
-      <button onClick={handleAddingIngredient}>Add ingredient</button>
+      <button id="add-ingredient" onClick={handleAddingIngredient}>
+        Add ingredient
+      </button>
       <div className="input-container">
         <label>Method</label>
         <textarea
